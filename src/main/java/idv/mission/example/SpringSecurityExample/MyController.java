@@ -39,7 +39,7 @@ public class MyController {
 
 	@RequestMapping("/success/logined")
 	public @ResponseBody String logined() {
-		return "成功登入";
+		return "Login Success！Click <a href='/logout'>Here</a> to logout.";
 	}
 
 	@RequestMapping("/jump")

@@ -6,6 +6,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @EnableWebSecurity
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -31,6 +32,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/test").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
 			.anyRequest().authenticated()	// 加這行，所有request都需要權限，不然SpringBoot會直接回答找不到，報錯
 			.and().formLogin().loginPage("/login").defaultSuccessUrl("/success/logined", true)
+			.and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login")
 			.and().exceptionHandling().accessDeniedHandler(accessDeniedHandler);
 	}
 
